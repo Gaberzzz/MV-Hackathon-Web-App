@@ -1,18 +1,25 @@
 'use client';
+
 import React, { useState } from 'react';
 import db from '@/app/models/database';
 import { collection, addDoc } from 'firebase/firestore';
+import { FaMapPin, FaPlus, FaUsers } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
-const CreateEventPage = () => {
-  const [organizations, setOrganizations] = useState(['']);
-  const [errors, setErrors] = useState({});
+export default function CreateEventPage() {
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     eventName: '',
+    description: '',
     date: '',
-    location: '',
     time: '',
+    location: '',
     capacity: '',
   });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [organizations, setOrganizations] = useState(['']);
 
   const handleOrganizationChange = (index, value) => {
     const newOrganizations = [...organizations];
@@ -38,19 +45,18 @@ const CreateEventPage = () => {
     if (!formData.eventName.trim()) {
       newErrors.eventName = 'Event name is required';
     }
-
+    if (!formData.description.trim()) {
+      newErrors.description = 'Description is required';
+    }
     if (!formData.date) {
       newErrors.date = 'Event date is required';
     }
-
-    if (!formData.location.trim()) {
-      newErrors.location = 'Event location is required';
-    }
-
     if (!formData.time) {
       newErrors.time = 'Event time is required';
     }
-
+    if (!formData.location.trim()) {
+      newErrors.location = 'Event location is required';
+    }
     if (!formData.capacity || formData.capacity <= 0) {
       newErrors.capacity = 'Capacity must be a positive number';
     }
@@ -62,9 +68,11 @@ const CreateEventPage = () => {
   const handleSubmit = async () => {
     if (validateForm()) {
       try {
+        setIsLoading(true);
         const eventRef = collection(db, 'events');
         await addDoc(eventRef, {
           eventName: formData.eventName,
+          description: formData.description,
           creator: 'Creator',
           date: formData.date,
           location: formData.location,
@@ -72,102 +80,100 @@ const CreateEventPage = () => {
           capacity: parseInt(formData.capacity, 10),
           organizations: organizations.filter((org) => org.trim() !== ''),
         });
-        console.log('Event successfully created!');
+        router.push('/events/');
+        setIsLoading(false);
       } catch (error) {
         console.error('Error adding event: ', error);
       }
-    } else {
-      console.log('Form is invalid. Fix errors.');
     }
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="border border-gray-300 p-4 rounded-lg w-1/4 space-y-4">
+    <div className="flex flex-col items-center">
+      <h1>Create New Event</h1>
+      <div className="flex flex-col gap-3 border w-1/3 p-5 rounded-box border-base-200">
         <input
           type="text"
           name="eventName"
-          placeholder="Add name of event"
-          className="w-full p-2 border rounded"
+          placeholder="Name of event"
+          className="input input-bordered w-full"
           value={formData.eventName}
           onChange={handleInputChange}
         />
         {errors.eventName && (
-          <p className="text-red-500 text-sm">{errors.eventName}</p>
+          <p className="text-error text-sm">{errors.eventName}</p>
+        )}
+        <textarea
+          type="text"
+          name="description"
+          placeholder="Description"
+          className="textarea textarea-bordered w-full"
+          value={formData.description}
+          onChange={handleInputChange}
+        />
+        {errors.eventName && (
+          <p className="text-error text-sm">{errors.eventName}</p>
         )}
 
-        <div className="relative w-full">
+        <label className="input input-bordered flex items-center gap-2">
           <input
             type="date"
             name="date"
-            className="w-full p-2 border rounded pl-10"
+            className="grow"
             value={formData.date}
             onChange={handleInputChange}
           />
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            📅
-          </span>
-        </div>
-        {errors.date && <p className="text-red-500 text-sm">{errors.date}</p>}
+        </label>
+        {errors.date && <p className="text-error text-sm">{errors.date}</p>}
 
-        <div className="relative w-full">
+        <label className="input input-bordered flex items-center gap-2">
           <input
             type="text"
             name="location"
-            placeholder="Set location"
-            className="w-full p-2 border rounded pl-10"
+            placeholder="Location"
+            className="grow"
             value={formData.location}
             onChange={handleInputChange}
           />
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            📍
-          </span>
-        </div>
+          <FaMapPin />
+        </label>
         {errors.location && (
-          <p className="text-red-500 text-sm">{errors.location}</p>
+          <p className="text-error text-sm">{errors.location}</p>
         )}
 
-        <div className="relative w-full">
+        <label className="input input-bordered flex items-center gap-2">
           <input
             type="time"
             name="time"
-            className="w-full p-2 border rounded pl-10"
+            className="grow"
             value={formData.time}
             onChange={handleInputChange}
           />
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            ⏰
-          </span>
-        </div>
-        {errors.time && <p className="text-red-500 text-sm">{errors.time}</p>}
+        </label>
+        {errors.time && <p className="text-error text-sm">{errors.time}</p>}
 
-        <div className="relative w-full">
+        <label className="input input-bordered flex items-center gap-2">
           <input
             type="number"
             name="capacity"
             placeholder="Attendee capacity"
-            className="w-full p-2 border rounded pl-10"
+            className="grow"
             min="1"
             value={formData.capacity}
             onChange={handleInputChange}
           />
-          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-            👥
-          </span>
-        </div>
+          <FaUsers />
+        </label>
         {errors.capacity && (
-          <p className="text-red-500 text-sm">{errors.capacity}</p>
+          <p className="text-error text-sm">{errors.capacity}</p>
         )}
 
         {organizations.map((organization, index) => (
-          <div
-            key={index}
-            className="relative w-full flex items-center space-x-2"
-          >
+          <div key={index} className="flex flex-col w-full items-center gap-2">
             <input
               type="text"
               placeholder="Organization Name"
-              className="w-full p-2 border rounded"
+              className="input input-bordered w-full"
               value={organization}
               onChange={(e) => handleOrganizationChange(index, e.target.value)}
             />
@@ -175,23 +181,22 @@ const CreateEventPage = () => {
               <button
                 type="button"
                 onClick={addOrganizationField}
-                className="bg-blue-500 text-white px-2 py-1 rounded"
+                className="btn btn-neutral btn-sm btn-circle"
               >
-                Add
+                <FaPlus />
               </button>
             )}
           </div>
         ))}
 
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded w-full"
+          className="btn btn-primary w-full"
           onClick={handleSubmit}
+          disabled={isLoading}
         >
-          Save
+          {isLoading ? 'Creating...' : 'Create'}
         </button>
       </div>
     </div>
   );
-};
-
-export default CreateEventPage;
+}

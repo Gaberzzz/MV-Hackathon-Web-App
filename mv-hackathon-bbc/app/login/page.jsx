@@ -47,7 +47,7 @@ const LoginPage = () => {
         >
           Login
         </button>
-        <a href="#" className="mt-4 text-sm text-gray-600 hover:text-gray-800">
+        <a href="/register/" className="mt-4 text-sm text-gray-600 hover:text-gray-800">
           Create an account
         </a>
       </form>

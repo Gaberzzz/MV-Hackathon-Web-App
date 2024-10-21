@@ -1,4 +1,5 @@
 import React from 'react';
+import { registerUser, loginUser, logoutUser } from "../models/userModels";
 
 export default function LoginPage() {
   return (

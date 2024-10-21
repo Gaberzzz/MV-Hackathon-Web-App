@@ -1,0 +1,12 @@
+specVersion: "v1beta"
+serviceId: "MV-Hackathon-Web-App"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "MV-Hackathon-Web-App-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

@@ -1,0 +1,25 @@
+[debug] [2024-10-21T06:11:03.983Z] ----------------------------------------------------------------------
+[debug] [2024-10-21T06:11:03.997Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\User\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-10-21T06:11:03.998Z] CLI Version:   13.22.1
+[debug] [2024-10-21T06:11:03.998Z] Platform:      win32
+[debug] [2024-10-21T06:11:03.999Z] Node Version:  v20.2.0
+[debug] [2024-10-21T06:11:03.999Z] Time:          Mon Oct 21 2024 14:11:03 GMT+0800 (Philippine Standard Time)
+[debug] [2024-10-21T06:11:03.999Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-21T06:11:04.013Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-21T06:11:04.013Z] > authorizing via signed-in user (pelegrinopatrick2@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\xampp\htdocs\GitHub\MV-Hackathon-Web-App\mv-hackathon-bbc
+
+Before we get started, keep in mind:
+
+  * You are currently outside your home directory
+

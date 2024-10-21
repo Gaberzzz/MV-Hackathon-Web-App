@@ -23,7 +23,7 @@ async function getEvent(id) {
 
 getEvents()
   .then((eventList) => {
-    console.log('Event List:', eventList);
+    // console.log('Event List:', eventList);
   })
   .catch((error) => {
     console.error('Error fetching events:', error);

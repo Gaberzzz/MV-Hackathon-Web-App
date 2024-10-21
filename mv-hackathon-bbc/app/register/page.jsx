@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from 'react';
 import { registerUser } from "../models/userModels";  // Import registerUser function
-import { Redirect } from 'react-router-dom';
 
 export default function RegisterPage() {
   // State to manage form inputs
@@ -25,7 +24,8 @@ export default function RegisterPage() {
       const user = await registerUser(email, password);  // Call the registerUser function
       console.log("User signed up:", user);
       if (user) {
-        return <Redirect to="/events" />;
+        console.log("redirectingggg");
+        window.location.href = '/events';
       }
       // Handle successful sign-up (e.g., navigate to another page or show success message)
     } catch (error) {

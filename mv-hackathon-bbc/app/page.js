@@ -1,8 +1,7 @@
-import Login from './components/loginPage.jsx';
-import SignupPage from './components/signUpPage.jsx';
+import LoginPage from "./login/page";
 
 export default function Home() {
   return <div>
-    <SignupPage />
-    </div>;
+    <LoginPage />
+      </div>;
 }

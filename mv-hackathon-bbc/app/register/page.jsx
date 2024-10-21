@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from 'react';
 import { registerUser } from "../models/userModels";  // Import registerUser function
+import { createUserDetails } from "../models/userDetailsModels";
 
 export default function RegisterPage() {
   // State to manage form inputs
-  const [fullName, setFullName] = useState('');
+  const [fullname, setfullname] = useState('');
   const [email, setEmail] = useState('');
   const [studentNumber, setStudentNumber] = useState('');
   const [password, setPassword] = useState('');
@@ -24,8 +25,12 @@ export default function RegisterPage() {
       const user = await registerUser(email, password);  // Call the registerUser function
       console.log("User signed up:", user);
       if (user) {
-        console.log("redirectingggg");
-        window.location.href = '/events';
+        const uid = user.uid;  // Access the user's uid
+        console.log("User UID:", uid);
+        const userDetails = await createUserDetails(uid, fullname, studentNumber);
+        if (userDetails) {
+          window.location.href = '/events';
+        }
       }
       // Handle successful sign-up (e.g., navigate to another page or show success message)
     } catch (error) {
@@ -44,8 +49,8 @@ export default function RegisterPage() {
             type="text"
             placeholder="Full Name"
             className="w-[462px] h-[75px] mb-4 px-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)} // Bind state
+            value={fullname}
+            onChange={(e) => setfullname(e.target.value)} // Bind state
           />
           <input
             type="email"

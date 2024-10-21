@@ -12,7 +12,9 @@ const LoginPage = () => {
     if (email && password) {
       console.log("u have email and password")
       loginUser(email, password);
-    } 
+    } else {
+      alert("Provide email and password");
+    }
   };
   
 
@@ -21,7 +23,7 @@ const LoginPage = () => {
       <h1 className="text-[54px] mb-8 text-gray-800 font-bold">TBD</h1>
       <div className="bg-white p-8 flex flex-col items-center shadow-md rounded-md">
         <h2 className="text-2xl mb-6 font-semibold text-gray-700">Login to TBD</h2>
-        <form action="submit">
+        <form onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="Email"
@@ -36,7 +38,7 @@ const LoginPage = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)} // Bind state
         />
-        <button type='submit' className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300" onSubmit={handleLogin()}>
+        <button type='submit' className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300">
           Login
         </button>
         </form>

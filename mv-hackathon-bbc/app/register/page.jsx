@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { registerUser } from "../models/userModels";  // Import registerUser function
+import { Redirect } from 'react-router-dom';
 
 export default function RegisterPage() {
   // State to manage form inputs
@@ -9,6 +10,7 @@ export default function RegisterPage() {
   const [studentNumber, setStudentNumber] = useState('');
   const [password, setPassword] = useState('');
   const [retypePassword, setRetypePassword] = useState('');
+  
 
   // Function to handle the sign-up process
   const handleSignUp = async (e) => {
@@ -17,11 +19,14 @@ export default function RegisterPage() {
     if (password !== retypePassword) {
       alert("Passwords do not match!");
       return;
-    }
+    } 
 
     try {
       const user = await registerUser(email, password);  // Call the registerUser function
       console.log("User signed up:", user);
+      if (user) {
+        return <Redirect to="/events" />;
+      }
       // Handle successful sign-up (e.g., navigate to another page or show success message)
     } catch (error) {
       console.error("Error during sign-up:", error);
@@ -72,7 +77,7 @@ export default function RegisterPage() {
           />
           <button 
             type="submit" 
-            className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300" onSubmit={registerUser(email, password)}>
+            className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300">
             Sign Up
           </button>
         </form>

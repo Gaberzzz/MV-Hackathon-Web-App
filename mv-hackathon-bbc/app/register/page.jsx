@@ -84,4 +84,3 @@ export default function RegisterPage() {
   );
 };
 
-export default SignupPage;

@@ -9,11 +9,11 @@ export default function EventListItem({ event }) {
         <img src="https://placehold.jp/300x150.png" alt="Preview" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title mb-0">
+        <h2 className="card-title link link-hover text-primary mb-0">
           <Link href={`/events/${event.id}`}>{event.eventName}</Link>
         </h2>
         <p className="mb-1">{event.description}</p>
-        <div className="flex flex-col text-xs mb-2">
+        <div className="flex flex-col text-xs mb-2 gap-1">
           <span className="flex items-center gap-1">
             <FaUser /> {event.creator}
           </span>
@@ -21,11 +21,16 @@ export default function EventListItem({ event }) {
             <FaUsers /> {event.capacity}
           </span>
           <span className="flex items-center gap-1">
-            <FaClock /> {event.location}
+            <FaMapPin /> {event.location}
           </span>
           <span className="flex items-center gap-1">
-            <FaMapPin /> {event.time} {event.date}
+            <FaClock /> {event.time} {event.date}
           </span>
+          <div className="flex gap-1">
+            {event.organizations.map((org) => (
+              <span className="badge badge-neutral">{org}</span>
+            ))}
+          </div>
         </div>
         <div className="card-actions flex">
           <button className="btn btn-primary w-full">Join</button>

@@ -35,4 +35,12 @@ async function getEvent(id) {
   return post;
 }
 
+getEvents()
+  .then((eventList) => {
+    // console.log('Event List:', eventList);
+  })
+  .catch((error) => {
+    console.error('Error fetching events:', error);
+  });
+
 export { getEvents, getEvent };

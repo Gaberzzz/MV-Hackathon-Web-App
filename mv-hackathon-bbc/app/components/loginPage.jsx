@@ -1,4 +1,5 @@
 import React from 'react';
+import { registerUser, loginUser, logoutUser } from "../models/userModels";
 
 const LoginPage = () => {
   return (
@@ -16,7 +17,7 @@ const LoginPage = () => {
           placeholder="Password"
           className="w-[462px] h-[75px] mb-[30px] px-4"
         />
-        <button className="w-[462px] h-[75px] bg-[#5BA7CA] text-white text-lg">
+        <button className="w-[462px] h-[75px] bg-[#5BA7CA] text-white text-lg" onClick={loginUser}>
           Login
         </button>
         <a href="#" className="mt-4 text-sm underline">

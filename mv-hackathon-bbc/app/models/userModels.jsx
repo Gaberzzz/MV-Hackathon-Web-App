@@ -7,6 +7,7 @@ const auth = getAuth();
 
 // Function to create a new user with email and password
 export async function registerUser(email, password) {
+  console.log("inside register");
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;

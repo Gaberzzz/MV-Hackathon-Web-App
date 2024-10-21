@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { registerUser } from "../models/userModels";  // Import registerUser function
 
@@ -71,7 +72,7 @@ export default function RegisterPage() {
           />
           <button 
             type="submit" 
-            className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300">
+            className="w-[462px] h-[75px] bg-blue-500 text-white text-lg rounded-md hover:bg-blue-600 transition duration-300" onSubmit={registerUser(email, password)}>
             Sign Up
           </button>
         </form>

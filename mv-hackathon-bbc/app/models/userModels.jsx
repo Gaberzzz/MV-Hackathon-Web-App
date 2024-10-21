@@ -6,7 +6,7 @@ import db from "./database";  // Assuming your Firestore instance is correctly i
 const auth = getAuth();
 
 // Function to create a new user with email and password
-async function registerUser(email, password) {
+export async function registerUser(email, password) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -19,7 +19,7 @@ async function registerUser(email, password) {
 }
 
 // Function to log in a user with email and password
-async function loginUser(email, password) {
+export async function loginUser(email, password) {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -32,7 +32,7 @@ async function loginUser(email, password) {
 }
 
 // Function to log out the current user
-async function logoutUser() {
+export async function logoutUser() {
   try {
     await signOut(auth);
     console.log("User signed out successfully.");

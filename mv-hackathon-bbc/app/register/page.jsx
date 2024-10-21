@@ -29,7 +29,7 @@ export default function RegisterPage() {
         console.log("User UID:", uid);
         const userDetails = await createUserDetails(uid, fullname, studentNumber);
         if (userDetails) {
-          window.location.href = '/events';
+          window.location.href = '/';
         }
       }
       // Handle successful sign-up (e.g., navigate to another page or show success message)

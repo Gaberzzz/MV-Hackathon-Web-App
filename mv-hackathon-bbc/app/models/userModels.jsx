@@ -1,9 +1,37 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+"use client";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs } from 'firebase/firestore';
 import db from "./database";  // Assuming your Firestore instance is correctly initialized in this file
+import { useState, useEffect, useContext, createContext } from 'react';
 
 // Initialize Firebase Auth
-const auth = getAuth();
+export const auth = getAuth();
+
+// Create an Auth Context
+const AuthContext = createContext(null);
+
+export const useAuth = () => useContext(AuthContext);
+
+// Create an AuthProvider to wrap the app
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const auth = getAuth();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);  // Set the user in state when the auth state changes
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [auth]);
+
+  return (
+    <AuthContext.Provider value={currentUser}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
 // Function to create a new user with email and password
 export async function registerUser(email, password) {
@@ -18,7 +46,6 @@ export async function registerUser(email, password) {
     throw error; // Re-throwing the error to be handled by the calling code
   }
 }
-console.log("userssss");
 
 // Function to log in a user with email and password
 export async function loginUser(email, password) {
@@ -41,6 +68,7 @@ export async function logoutUser() {
   try {
     await signOut(auth);
     console.log("User signed out successfully.");
+    window.location.href = "/";
   } catch (error) {
     console.error("Error signing out:", error);
     throw error;

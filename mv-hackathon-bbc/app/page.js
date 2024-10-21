@@ -1,4 +1,5 @@
-import Login from './components/loginPage.jsx';
+
+import LoginPage from './login/page.jsx';
 import events from "./models/eventModels.jsx";
 
 

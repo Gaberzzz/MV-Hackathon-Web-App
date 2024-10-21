@@ -1,9 +1,12 @@
 import React from 'react';
 import { getEvent } from '@/app/models/eventModels';
 import { FaClock, FaMapPin, FaUser, FaUsers } from 'react-icons/fa';
+import db from '@/app/models/database';
+import { doc, getDoc } from 'firebase/firestore';
 
 export default async function EventPage({ params }) {
   const event = await getEvent(params.id);
+  console.log(event.participants);
 
   return (
     <div>
@@ -33,6 +36,23 @@ export default async function EventPage({ params }) {
         </div>
       </div>
       <p>{event.description}</p>
+      <div className="my-3">
+        <h3 className="mb-1">Participants</h3>
+        <ul>
+          {event.participants ? (
+            event.participants.map(async (participant) => {
+              console.log('Participant', participant);
+              const userRef = doc(db, 'userDetails', participant);
+              const userSnapshot = await getDoc(userRef);
+              const user = { ...userSnapshot.data(), id: userSnapshot.id };
+              console.log(user);
+              return <li>{user.fullname}</li>;
+            })
+          ) : (
+            <li>No participants</li>
+          )}
+        </ul>
+      </div>
     </div>
   );
 }

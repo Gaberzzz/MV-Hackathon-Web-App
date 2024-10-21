@@ -23,7 +23,7 @@ export default function LoginPage() {
       const user = await loginUser(email, password);
       if (user) {
         console.log("redirectingggg");
-        window.location.href = '/events';
+        window.location.href = '/';
       }
     } else {
       alert("Provide email and password");

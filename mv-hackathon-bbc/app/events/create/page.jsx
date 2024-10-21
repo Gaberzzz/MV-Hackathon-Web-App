@@ -80,7 +80,7 @@ export default function CreateEventPage() {
           capacity: parseInt(formData.capacity, 10),
           organizations: organizations.filter((org) => org.trim() !== ''),
         });
-        router.push('/events/');
+        router.push('/');
         setIsLoading(false);
       } catch (error) {
         console.error('Error adding event: ', error);

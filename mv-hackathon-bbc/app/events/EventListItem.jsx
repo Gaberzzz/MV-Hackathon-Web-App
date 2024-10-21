@@ -1,4 +1,6 @@
 import React from 'react';
+import Link from 'next/link';
+import { FaClock, FaMapPin, FaUser, FaUsers } from 'react-icons/fa';
 
 export default function EventListItem({ event }) {
   return (
@@ -7,12 +9,23 @@ export default function EventListItem({ event }) {
         <img src="https://placehold.jp/300x150.png" alt="Preview" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title mb-0">Event Name</h2>
-        <p className="mb-1">Event description</p>
-        <div className="flex justify-between text-xs mb-2">
-          <span className="">Uploader</span>
-          <span>Location</span>
-          <span>Date</span>
+        <h2 className="card-title mb-0">
+          <Link href={`/events/${event.id}`}>{event.eventName}</Link>
+        </h2>
+        <p className="mb-1">{event.description}</p>
+        <div className="flex flex-col text-xs mb-2">
+          <span className="flex items-center gap-1">
+            <FaUser /> {event.creator}
+          </span>
+          <span className="flex items-center gap-1">
+            <FaUsers /> {event.capacity}
+          </span>
+          <span className="flex items-center gap-1">
+            <FaClock /> {event.location}
+          </span>
+          <span className="flex items-center gap-1">
+            <FaMapPin /> {event.time} {event.date}
+          </span>
         </div>
         <div className="card-actions flex">
           <button className="btn btn-primary w-full">Join</button>

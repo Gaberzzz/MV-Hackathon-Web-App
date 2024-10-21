@@ -32,7 +32,7 @@ export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-[54px] mb-8 text-gray-800 font-bold">TBD</h1>
-      <div className="bg-white p-8 flex flex-col items-center shadow-md rounded-md">
+      <form onSubmit={handleSubmit} className="bg-white p-8 flex flex-col items-center shadow-md rounded-md">
         <h2 className="text-2xl mb-6 font-semibold text-gray-700">Sign up for TBD</h2>
         <form onSubmit={handleSignUp}> {/* Handle sign-up on form submission */}
           <input
@@ -79,7 +79,9 @@ export default function RegisterPage() {
         <a href="/login/" className="mt-4 text-sm text-gray-600 hover:text-gray-800">
           Already have an account? Log in
         </a>
-      </div>
+      </form>
     </div>
   );
-}
+};
+
+export default SignupPage;

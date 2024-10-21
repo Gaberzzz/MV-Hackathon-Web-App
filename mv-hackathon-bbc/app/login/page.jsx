@@ -11,7 +11,7 @@ const LoginPage = () => {
     console.log("Email:", email, "Password:", password); // Check if these values are correct
     if (email && password) {
       console.log("u have email and password")
-      // loginUser(email, password);
+      loginUser(email, password);
     } 
   };
   
